@@ -22,19 +22,19 @@ public class DiceRoll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textMesh.text = value.ToString();
-        value++;
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2((int)mousePos.x, (int)mousePos.y);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+            if(hit.collider != null)
+            {
+                textMesh = GameObject.Find("redDice/DiceValue").GetComponent<TextMeshPro>();
+                value = new System.Random().Next(1, 7);
+                textMesh.text = value.ToString();
+            }
+        }
     }
 
-    private void OnMouseDown()
-    {
-        Vector3 mousePos;
-        mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mouse)
-    }
-
-    private void OnMouseUp()
-    {
-
-    }
 }
